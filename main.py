@@ -2,6 +2,7 @@
 
 import numpy as np
 import tkinter as tk
+import random
 
 
 
@@ -20,7 +21,15 @@ class Deck:
         self.cards = c
 
     def shuffle(self):
-        pass
+        temp = []
+        while self.cards:
+             r = random.randint(0, len(self.cards) - 1)
+             n = self.cards.pop(r)
+             temp.append(n)
+
+        self.cards = temp
+
+
 
     def show(self):
         for card in self.cards:
@@ -63,6 +72,8 @@ def setup():
     deck = generateDeck()
 
     game = Game(Players, deck)
+    #game.Deck.show()
+    game.Deck.shuffle()
     game.Deck.show()
 
 def generateDeck():
