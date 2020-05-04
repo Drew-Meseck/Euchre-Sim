@@ -14,7 +14,7 @@ class Card:
         self.suit = su
 
     def show(self):
-        print(" {} of {} \n".format(self.value, self.suit))
+        print(" {} of {}".format(self.value, self.suit))
 
 class Deck:
     def __init__(self, c):
@@ -36,15 +36,25 @@ class Deck:
             card.show()
 
     def deal(self, Players):
-        pass
+        for Player in Players:
+            for i in range(0, 5):
+                c = self.cards.pop()
+                Player.hand.append(c)
+
 
 class Player:
-    def __init__(self, t):
+    def __init__(self, i, t):
+        self.id = i
         self.team = t
         self.hand = []
         self.tricks = []
 
     #placeholder for eventual play functions.
+    def show_hand(self):
+        print("Cards in hand for Player {}: ".format(self.id))
+        for card in self.hand:
+            card.show()
+
 
 class Game:
     def __init__(self, p, d):
@@ -57,15 +67,16 @@ class Game:
         pass
 
     def reset(self):
-        pass
+        self.Deck = generateDeck()
+        self.Deck.shuffle()
 
 def setup():
 
     #creates 4 players, two on each team
-    p1 = Player(0)
-    p2 = Player(1)
-    p3 = Player(0)
-    p4 = Player(1)
+    p1 = Player(1, 0)
+    p2 = Player(2, 1)
+    p3 = Player(3, 0)
+    p4 = Player(4, 1)
     #creates array of players
     Players = [p1, p2, p3, p4]
 
@@ -75,6 +86,12 @@ def setup():
     #game.Deck.show()
     game.Deck.shuffle()
     game.Deck.show()
+    game.Deck.deal(game.Players)
+    print("\n")
+
+    for p in game.Players:
+        p.show_hand()
+        print("\n")
 
 def generateDeck():
     values = ["9", "10", "Jack", "Queen", "King", "Ace"]
