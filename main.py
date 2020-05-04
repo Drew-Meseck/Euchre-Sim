@@ -70,7 +70,8 @@ class Game:
         self.Deck = generateDeck()
         self.Deck.shuffle()
 
-def setup():
+#setup at the beginning of the game
+def setup_macro():
 
     #creates 4 players, two on each team
     p1 = Player(1, 0)
@@ -92,6 +93,10 @@ def setup():
     for p in game.Players:
         p.show_hand()
         print("\n")
+
+#setup for each round
+def setup_micro():
+    pass
 
 def generateDeck():
     values = ["9", "10", "Jack", "Queen", "King", "Ace"]
