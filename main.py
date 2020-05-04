@@ -4,6 +4,8 @@ import numpy as np
 import tkinter as tk
 
 
+
+
 #Class definitions
 class Card:
     def __init__(self, val, su):
@@ -21,7 +23,7 @@ class Deck:
         pass
 
     def show(self):
-        for card in cards:
+        for card in self.cards:
             card.show()
 
     def deal(self, Players):
@@ -61,10 +63,20 @@ def setup():
     deck = generateDeck()
 
     game = Game(Players, deck)
-
+    game.Deck.show()
 
 def generateDeck():
-    pass
+    values = ["9", "10", "Jack", "Queen", "King", "Ace"]
+    suits = ["Spades", "Clubs", "Hearts", "Diamonds"]
+    cards = []
+
+    for value in values:
+        for suit in suits:
+            c = Card(value, suit)
+            cards.append(c)
+
+    return Deck(cards)
+    
 
 
 #Main function
