@@ -114,10 +114,10 @@ def generateDeck():
 
 #Main function
 def main():
-    setup()
+    setup_macro()
 
 
-
+ 
 
 
 
