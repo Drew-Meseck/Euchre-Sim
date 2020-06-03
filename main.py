@@ -81,10 +81,11 @@ def setup_macro():
     #creates array of players
     Players = [p1, p2, p3, p4]
 
+
+    #generates deck and creates the game object
     deck = generateDeck()
 
     game = Game(Players, deck)
-    #game.Deck.show()
     game.Deck.shuffle()
     game.Deck.show()
     game.Deck.deal(game.Players)
@@ -95,8 +96,12 @@ def setup_macro():
         print("\n")
 
 #setup for each round
-def setup_micro():
-    pass
+def setup_micro(game):
+    game.Deck = generateDeck()
+    game.Deck.shuffle()
+    game.Deck.deal(game.Players)
+    shiftDealer(game)
+    
 
 def generateDeck():
     values = ["9", "10", "Jack", "Queen", "King", "Ace"]
@@ -109,6 +114,13 @@ def generateDeck():
             cards.append(c)
 
     return Deck(cards)
+
+
+def shiftDealer(game):
+    #ensures that the new dealer is alwyas in position 4 after each round so that the loop is the initial order of play
+    new_dealer = game.Players.pop(0)
+    game.Players.append(new_dealer)
+    
     
 
 
