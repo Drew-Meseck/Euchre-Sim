@@ -2,73 +2,8 @@
 
 import numpy as np
 import tkinter as tk
-import random
+from objects import Game, Deck, Player, Card
 
-
-
-
-#Class definitions
-class Card:
-    def __init__(self, val, su):
-        self.value = val
-        self.suit = su
-
-    def show(self):
-        print(" {} of {}".format(self.value, self.suit))
-
-class Deck:
-    def __init__(self, c):
-        self.cards = c
-
-    def shuffle(self):
-        temp = []
-        while self.cards:
-             r = random.randint(0, len(self.cards) - 1)
-             n = self.cards.pop(r)
-             temp.append(n)
-
-        self.cards = temp
-
-
-
-    def show(self):
-        for card in self.cards:
-            card.show()
-
-    def deal(self, Players):
-        for Player in Players:
-            for i in range(0, 5):
-                c = self.cards.pop()
-                Player.hand.append(c)
-
-
-class Player:
-    def __init__(self, i, t):
-        self.id = i
-        self.team = t
-        self.hand = []
-        self.tricks = []
-
-    #placeholder for eventual play functions.
-    def show_hand(self):
-        print("Cards in hand for Player {}: ".format(self.id))
-        for card in self.hand:
-            card.show()
-
-
-class Game:
-    def __init__(self, p, d):
-        self.Players = p
-        self.Deck = d
-        self.t1_points = 0
-        self.t2_points = 0
-    
-    def step(self):
-        pass
-
-    def reset(self):
-        self.Deck = generateDeck()
-        self.Deck.shuffle()
 
 #setup at the beginning of the game
 def setup_macro():
@@ -83,10 +18,9 @@ def setup_macro():
 
 
     #generates deck and creates the game object
-    deck = generateDeck()
+    deck = Deck()
 
     game = Game(Players, deck)
-    game.Deck.shuffle()
     game.Deck.show()
     game.Deck.deal(game.Players)
     print("\n")
@@ -95,35 +29,23 @@ def setup_macro():
         p.show_hand()
         print("\n")
 
+    print("The Card Flipped Up is: ")
+    to_call = game.Deck.cards[0]
+    to_call.show()
+
+    print("The Dealer for this round is: ")
+    dealer = game.Players[3]
+    dealer.show()
+
 #setup for each round
 def setup_micro(game):
-    game.Deck = generateDeck()
-    game.Deck.shuffle()
+    game.reset()
     game.Deck.deal(game.Players)
-    shiftDealer(game)
-    
-
-def generateDeck():
-    values = ["9", "10", "Jack", "Queen", "King", "Ace"]
-    suits = ["Spades", "Clubs", "Hearts", "Diamonds"]
-    cards = []
-
-    for value in values:
-        for suit in suits:
-            c = Card(value, suit)
-            cards.append(c)
-
-    return Deck(cards)
-
-
-def shiftDealer(game):
-    #ensures that the new dealer is alwyas in position 4 after each round so that the loop is the initial order of play
-    new_dealer = game.Players.pop(0)
-    game.Players.append(new_dealer)
-    
+    game.shiftDealer()
     
 
 
+    
 #Main function
 def main():
     setup_macro()
