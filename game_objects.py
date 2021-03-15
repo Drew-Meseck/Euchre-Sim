@@ -1,4 +1,5 @@
 import random
+import pygame
 
 #Class definitions
 class Card:
@@ -10,8 +11,10 @@ class Card:
         print(" {} of {}".format(self.value, self.suit))
 
 class Deck:
+    
     def __init__(self):
         self.cards = self.generateDeck()
+        self.sprites = pygame.sprite.Group()
 
     def generateDeck(self):
         values = ["9", "10", "Jack", "Queen", "King", "Ace"]
@@ -36,6 +39,9 @@ class Deck:
                 self.cards.remove(c)
                 Player.hand.append(c)
 
+    def update_deck():
+        #update the sprites in the deck
+
 
 class Player:
     def __init__(self, i, t):
@@ -43,6 +49,7 @@ class Player:
         self.team = t
         self.hand = []
         self.tricks = []
+        self.sprites_hand = pygame.sprite.Group()
 
     #placeholder for eventual play functions.
     def show_hand(self):
@@ -53,6 +60,8 @@ class Player:
     def show(self):
         print("Player {} on team {}".format(self.id, self.team))
 
+    def update_hand():
+        #update the sprites in hand
 
 class Game:
     def __init__(self, p, d):
