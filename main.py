@@ -1,8 +1,12 @@
 #Main File
 
 import numpy as np
-import tkinter as tk
-from objects import Game, Deck, Player, Card
+import pygame
+import sys
+sys.path.append(".")
+
+from game_objects import Card, Deck, Player, Game
+
 
 
 #setup at the beginning of the game
@@ -18,9 +22,9 @@ def setup_macro():
 
 
     #generates deck and creates the game object
-    deck = Deck()
+    deck = game_objects.Deck()
 
-    game = Game(Players, deck)
+    game = gameobjects.Game(Players, deck)
     game.Deck.show()
     game.Deck.deal(game.Players)
     print("\n")
@@ -46,9 +50,41 @@ def setup_micro(game):
 
 
     
+    
+    
+    
 #Main function
 def main():
-    setup_macro()
+    #Get pygame to do what I want it to do.
+    pygame.init()
+    frames_per_second = 30
+    window_height = 600
+    window_width = 1200
+
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    BLUE = (0, 0, 255)
+
+    display = pygame.display.set_mode((window_width, window_height))
+    clock = pygame.time.Clock()
+    
+
+    while True:
+        clock.tick(frames_per_second)
+        
+        display.fill(WHITE)
+
+
+
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            
+
+    
+
+    #setup_macro()
 
 
  
